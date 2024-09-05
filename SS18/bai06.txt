@@ -1,0 +1,1 @@
+Sử dụng một HashMap hoặc Map để lưu trữ từng từ và tần suất xuất hiện của chúng trong tệp văn bản. Với mỗi từ đọc được, tăng tần suất của từ đó trong Map.
