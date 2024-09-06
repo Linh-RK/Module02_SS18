@@ -36,9 +36,13 @@ public class Main {
             case "3": {
               System.out.println("Enter search keys: ");
               String search = sc.nextLine();
-              List<Product> listRead = readFile("src/ex08/bai08.txt");
-              listRead.stream().filter(e->e.getName().contains(search)).forEach(Product::display);
-              break;
+              if(list.isEmpty()){
+                System.out.println("List is empty");
+              }else{
+                List<Product> listRead = readFile("src/ex08/bai08.txt");
+                listRead.stream().filter(e->e.getName().contains(search)).forEach(Product::display);
+                break;
+              }
             }
             case "4": {
               System.exit(0);
@@ -53,11 +57,15 @@ public class Main {
     }
 
   private static void addNew(Scanner sc) {
+//      List<Product> listRead = readFile("src/ex08/bai08.txt");
+
     System.out.println("Enter the number of products you want to add: ");
     int number = inputNum(sc);
     for (int i = 0; i < number; i++) {
-      product.input(sc);
-      writeFile("src/ex08/bai08.txt");
+      Product p = new Product();
+      p.input(sc);
+      list.add(p);
+      writeFile(list,"src/ex08/bai08.txt");
     }
   }
 
@@ -82,22 +90,22 @@ public class Main {
       }while (true);
   }
 
-  public static void writeFile(String filename) {
-      try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("src/ex08/bai08.txt"))){
+  public static <Product> void writeFile(List<Product> list, String path) {
+      try(ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))){
         oos.writeObject(list);
         System.out.println("Written list product to file");
       } catch (IOException e) {
         throw new RuntimeException(e);
       }
     }
-    public static List<Product> readFile(String filename) {
-      List<Product> listOut = new ArrayList<>();
-      try(ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/ex08/bai08.txt"))){
-        listOut = (List<Product>) ois.readObject();
-      } catch (IOException | ClassNotFoundException e) {
-        throw new RuntimeException(e);
-      }
-      return  listOut;
+    public static <Product> List<Product> readFile(String path) {
+      List<Product> listOut ;
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("src/ex08/bai08.txt"))) {
+            listOut = (List<Product>) ois.readObject();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return listOut;
     }
 
 

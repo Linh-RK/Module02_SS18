@@ -73,7 +73,7 @@ public class Product implements Serializable {
     }
 
     public void display(){
-        System.out.println("-----------------------------------------------------------------");
+        System.out.println("-----------------------------------------------------------");
         System.out.printf("| %-3d | %-10s | %-10f | %-10s | %-10s |\n", idProduct, name, price, producer, description);
     }
     private int autoId(Scanner sc) {
